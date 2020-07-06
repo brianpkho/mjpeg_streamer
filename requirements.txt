@@ -1,3 +1,5 @@
 opencv-python
 confluent-kafka
 flask
+gevent
+gevent-websocket
