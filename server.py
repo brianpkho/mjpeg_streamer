@@ -3,6 +3,7 @@ from flask import Flask, Response, make_response
 import cv2
 import io
 import base64
+import time
 
 cam = cv2.VideoCapture(0)
 # Settings to smooth camera
@@ -30,6 +31,7 @@ def show_webcam(mirror=False):
 def video_feed():
     return Response(
         show_webcam(mirror=True),
+        status=200,
         mimetype='multipart/x-mixed-replace; boundary=--jpgboundary'
     )
 
@@ -48,4 +50,8 @@ def snap_feed(mirror=True):
     return response
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001, debug=True)
+    from gevent import pywsgi
+    from geventwebsocket.handler import WebSocketHandler
+    # app.run(host='0.0.0.0', port=5001, debug=True)
+    server = pywsgi.WSGIServer(('0.0.0.0', 5001), app, handler_class=WebSocketHandler)
+    server.serve_forever()
