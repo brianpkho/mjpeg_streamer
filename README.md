@@ -1,6 +1,6 @@
 # MJEP Streamer
 
-A simple MJPEG streamer created by Flask. 
+A simple MJPEG streamer created by Flask. The goal of this is to create a MJPEG Streamer for Octoprint to allow a laptop to monitor 3d-printing.
 
 # Installation
 
