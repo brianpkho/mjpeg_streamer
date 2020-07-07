@@ -10,9 +10,14 @@ pip install -r requirements.txt
 
 # Run
 
-To run it locally:
+To test it locally:
 ```
 python server.py
+```
+
+To run it locally:
+```
+./start.sh
 ```
 
 To access the server: `localhost:5001`
