@@ -20,6 +20,6 @@ To run it locally:
 ./start.sh
 ```
 
-To access the server: `localhost:5001`
+To access the stream server: `localhost:5001/stream`
 
-Future Implementations: Use kafka to help with analysis.
+To access the snap stream: `localhost:5001/snap`
