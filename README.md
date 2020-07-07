@@ -21,5 +21,3 @@ To run it locally:
 ```
 
 To access the server: `localhost:5001`
-
-Future Implementations: Use kafka to help with analysis.
