@@ -13,9 +13,10 @@ cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
 app = Flask(__name__)
 
 
-def show_webcam():
+def show_webcam(mirror=False):
     while True:
         ret_val, img = cam.read()
+        if mirror: img = cv2.flip(img, 1)
         retval, buffer = cv2.imencode('.jpg', img)
         io_buf = io.BytesIO(buffer)
         yield (b'--jpgboundary\r\n'
@@ -25,7 +26,7 @@ def show_webcam():
 @app.route('/stream')
 def video_feed():
     return Response(
-        show_webcam(),
+        show_webcam(mirror=True),
         status=200,
         mimetype='multipart/x-mixed-replace; boundary=--jpgboundary'
     )
@@ -33,6 +34,7 @@ def video_feed():
 @app.route('/snap')
 def snap_feed():
     ret_val, img = cam.read()
+    img = cv2.flip(img, 1)
     retval, buffer = cv2.imencode('.jpg', img)
     jpg_as_text = base64.b64encode(buffer)
     response = make_response(buffer.tobytes())
