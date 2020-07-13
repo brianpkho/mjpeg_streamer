@@ -13,7 +13,7 @@ cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
 app = Flask(__name__)
 
 
-def show_webcam(mirror=False):
+def show_webcam():
     while True:
         ret_val, img = cam.read()
         retval, buffer = cv2.imencode('.jpg', img)
@@ -25,7 +25,7 @@ def show_webcam(mirror=False):
 @app.route('/stream')
 def video_feed():
     return Response(
-        show_webcam(mirror=True),
+        show_webcam(),
         status=200,
         mimetype='multipart/x-mixed-replace; boundary=--jpgboundary'
     )
