@@ -16,7 +16,6 @@ app = Flask(__name__)
 def show_webcam(mirror=False):
     while True:
         ret_val, img = cam.read()
-        if mirror: img = cv2.flip(img, 1)
         retval, buffer = cv2.imencode('.jpg', img)
         io_buf = io.BytesIO(buffer)
         yield (b'--jpgboundary\r\n'
@@ -34,7 +33,6 @@ def video_feed():
 @app.route('/snap')
 def snap_feed():
     ret_val, img = cam.read()
-    img = cv2.flip(img, 1)
     retval, buffer = cv2.imencode('.jpg', img)
     jpg_as_text = base64.b64encode(buffer)
     response = make_response(buffer.tobytes())
